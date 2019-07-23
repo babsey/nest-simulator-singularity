@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ -z "$2" ] || [ "$2" = "latest" ]
+  then
+    VERSION="2.18.0"
+  else
+    VERSION="$2"
+fi
+echo NEST $VERSION
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+build() {
+  sudo singularity build "$DIR"/../images/nest-simulator-v"$VERSION".sif "$DIR"/../recipes/nest-simulator-v"$VERSION".def
+}
+
+interactive() {
+  singularity run --app interactive "$DIR"/../images/nest-simulator-v"$VERSION".sif
+}
+
+notebook() {
+  singularity run --app notebook "$DIR"/../images/nest-simulator-v"$VERSION".sif
+}
+
+case "$1" in
+  build) build ;;
+  interactive) interactive ;;
+  notebook) notebook ;;
+  *) echo "usage: nest-simulator build|interactive|notebook <version>" >&2
+     exit 1
+     ;;
+esac
