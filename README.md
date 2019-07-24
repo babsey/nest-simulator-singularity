@@ -15,7 +15,9 @@ Please replace ```<..>``` with the location where you cloned this repository on 
 
 Hint: Add this line in .bashrc
 
-Then execute a command to install singularity container with NEST simulator. The latest version of NEST simulator is 2.18.0.
+Then execute a command to install singularity container with NEST simulator.
+The latest version of NEST simulator is 2.18.0.
+It will ask for password to get root rights to build singularity container.
 ```
 nest-singularity build 2.18.0
 ```
