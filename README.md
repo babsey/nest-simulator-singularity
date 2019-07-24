@@ -11,7 +11,7 @@ Add bin folder into PATH environment.
 ```
 export PATH=$PATH:<..>/nest-singularity/bin/
 ```
-Please replace ```<..>``` with the location where you cloned this repository to on your computer.
+Please replace ```<..>``` with the location where you cloned this repository on your computer.
 
 Hint: Add this line to .bashrc
 
