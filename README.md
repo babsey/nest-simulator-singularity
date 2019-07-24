@@ -17,7 +17,7 @@ Hint: Add this line to .bashrc
 
 Then execute a command to install singularity container with NEST simulator. The latest version of NEST simulator is 2.18.0.
 ```
-nest-singularity build 2.18.0
+sudo nest-singularity build 2.18.0
 ```
 
 To start notebook
