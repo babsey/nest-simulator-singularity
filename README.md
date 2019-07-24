@@ -13,7 +13,7 @@ export PATH=$PATH:<..>/nest-singularity/bin/
 ```
 Please replace ```<..>``` with the location where you cloned this repository on your computer.
 
-Hint: Add this line to .bashrc
+Hint: Add this line in .bashrc
 
 Then execute a command to install singularity container with NEST simulator. The latest version of NEST simulator is 2.18.0.
 ```
