@@ -6,7 +6,7 @@ From: ubuntu:18.04
 
 %post
   export VERSION=2.14.0
-  
+
   apt-get update && apt-get install -y tzdata
   apt-get install -y \
     build-essential \
