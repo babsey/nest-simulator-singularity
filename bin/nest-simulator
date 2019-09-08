@@ -27,11 +27,6 @@ notebook() {
   singularity exec "$DIR"/../images/nest-simulator-v"$VERSION".sif jupyter notebook
 }
 
-script() {
-  echo Run Python script with NEST Simulator $VERSION
-  singularity exec "$DIR"/../images/nest-simulator-v"$VERSION".sif python3 $3
-}
-
 CMD=$1; shift
 while getopts "hv:" opt; do
     case $opt in
