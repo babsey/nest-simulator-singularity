@@ -1,0 +1,49 @@
+#!/bin/bash
+
+VERSION="2.18.0"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+usage() {
+  echo "Usage: $0 build|shell|ipython|notebook [-v <version>]" 1>&2; exit 1;
+}
+
+build() {
+  echo Build Singularity image with NEST Simulator $VERSION
+  sudo singularity build "$DIR"/../images/nest-simulator-v"$VERSION".sif "$DIR"/../recipes/nest-simulator-v"$VERSION".def
+}
+
+shell() {
+  echo Run shell with NEST Simulator $VERSION
+  singularity shell "$DIR"/../images/nest-simulator-v"$VERSION".sif
+}
+
+ipython() {
+  echo Run ipython with NEST Simulator $VERSION
+  singularity exec "$DIR"/../images/nest-simulator-v"$VERSION".sif ipython
+}
+
+notebook() {
+  echo Run notebook with NEST Simulator $VERSION
+  singularity exec "$DIR"/../images/nest-simulator-v"$VERSION".sif jupyter notebook
+}
+
+script() {
+  echo Run Python script with NEST Simulator $VERSION
+  singularity exec "$DIR"/../images/nest-simulator-v"$VERSION".sif python3 $3
+}
+
+CMD=$1; shift
+while getopts "hv:" opt; do
+    case $opt in
+        h) usage ;;
+        v) VERSION=$OPTARG ;;
+    esac
+done
+
+case "$CMD" in
+  build) build ;;
+  shell) shell ;;
+  ipython) ipython ;;
+  notebook) notebook ;;
+  *) usage ;;
+esac

@@ -26,7 +26,7 @@ From: ubuntu:18.04
   apt-get autoremove -y
   rm -rf /var/lib/apt/lists/*
 
-  pip3 install nestml ipython jupyter --upgrade
+  pip3 install ipython jupyter --upgrade
 
   cd /tmp/
   git clone https://github.com/nest/nest-simulator.git
@@ -62,15 +62,3 @@ From: ubuntu:18.04
 
   # Make nest / sli /... executables visible.
   export PATH=$NEST_INSTALL_DIR/bin:$PATH
-
-%runscript
-  /bin/bash
-
-%apprun notebook
-  jupyter notebook
-
-%apprun interactive
-  ipython
-
-%apprun script
-  python3 @1
