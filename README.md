@@ -29,7 +29,7 @@ nest-simulator shell
 
 To start ipython with NEST Simulator
 ```
-nest-singularity ipython
+nest-simulator ipython
 ```
 
 To start notebook with NEST Simulator
