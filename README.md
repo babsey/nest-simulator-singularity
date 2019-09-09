@@ -1,4 +1,4 @@
-# nest-singularity
+# nest-simulator-singularity
 
 
 ##### Requirement
@@ -9,7 +9,7 @@
 
 Add bin folder into PATH environment.
 ```
-export PATH=$PATH:<..>/nest-singularity/bin/
+export PATH=$PATH:<..>/nest-simulator-singularity/bin/
 ```
 Please replace ```<..>``` with the location where you cloned this repository on your computer.
 
@@ -19,20 +19,20 @@ Then execute a command to install singularity container with NEST simulator.
 The latest version of NEST simulator is 2.18.0.
 It will ask for password to get root rights to build singularity container.
 ```
-nest-singularity build 2.18.0
+nest-simulator build
 ```
 
-To start notebook
+To start shell with NEST Simulator
 ```
-nest-singularity notebook 2.18.0
-```
-
-To start ipython3
-```
-nest-singularity interactive 2.18.0
+nest-simulator shell
 ```
 
-To execute python script in container
+To start ipython with NEST Simulator
 ```
-nest-singularity script 2.18.0 <file>
+nest-singularity ipython
+```
+
+To start notebook with NEST Simulator
+```
+nest-simulator notebook
 ```
