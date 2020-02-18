@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="2.18.0"
+VERSION="v2.20.0"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 usage() {
@@ -9,22 +9,22 @@ usage() {
 
 build() {
   echo Build Singularity image with NEST Simulator $VERSION
-  sudo singularity build "$DIR"/../images/nest-simulator-v"$VERSION".sif "$DIR"/../recipes/nest-simulator-v"$VERSION".def
+  sudo singularity build "$DIR"/../images/nest-simulator-"$VERSION".sif "$DIR"/../recipes/nest-simulator-"$VERSION".def
 }
 
 shell() {
   echo Run shell with NEST Simulator $VERSION
-  singularity shell "$DIR"/../images/nest-simulator-v"$VERSION".sif
+  singularity shell "$DIR"/../images/nest-simulator-"$VERSION".sif
 }
 
 ipython() {
   echo Run ipython with NEST Simulator $VERSION
-  singularity exec "$DIR"/../images/nest-simulator-v"$VERSION".sif ipython
+  singularity exec "$DIR"/../images/nest-simulator-"$VERSION".sif ipython
 }
 
 notebook() {
   echo Run notebook with NEST Simulator $VERSION
-  singularity exec "$DIR"/../images/nest-simulator-v"$VERSION".sif jupyter notebook
+  singularity exec "$DIR"/../images/nest-simulator-"$VERSION".sif jupyter notebook
 }
 
 CMD=$1; shift
