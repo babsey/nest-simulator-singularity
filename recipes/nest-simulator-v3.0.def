@@ -1,11 +1,11 @@
 Bootstrap: docker
-From: ubuntu:18.04
+From: ubuntu:20.04
 
 %labels
   AUTHOR Sebastian Spreizer <spreizer@web.de>
 
 %post
-  export VERSION=2.12.0
+  export VERSION=3.0
 
   apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
@@ -15,6 +15,7 @@ From: ubuntu:18.04
     libltdl-dev \
     libncurses5-dev \
     libreadline-dev \
+    openmpi-bin \
     python \
     python3-all-dev \
     python3-matplotlib \
@@ -27,7 +28,8 @@ From: ubuntu:18.04
   apt-get autoremove -y
   rm -rf /var/lib/apt/lists/*
 
-  pip3 install ipython jupyter --upgrade
+  python3 -m pip install flask flask-cors RestrictedPython uwsgi
+  python3 -m pip install ipython jupyter --upgrade
 
   cd /tmp/
   if [ ! -f "v$VERSION.tar.gz" ]; then
@@ -35,13 +37,11 @@ From: ubuntu:18.04
   fi
   rm -rf /tmp/nest-simulator-$VERSION
   tar -zxf v$VERSION.tar.gz
+  python3 -m pip install -r /tmp/nest-simulator-3.0/extras/nest-simulator-doc-requirements.txt
 
   rm -rf /tmp/nest-build; mkdir /tmp/nest-build; cd /tmp/nest-build
-  cmake \
-    -DCMAKE_INSTALL_PREFIX:PATH=/opt/nest-simulator \
-    -Dwith-python=3 \
-    /tmp/nest-simulator-$VERSION
-  make -j 4; make install
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/nest-simulator /tmp/nest-simulator-$VERSION
+  make -j 4; make html; make install
 
   rm -rf /tmp/nest-simulator-$VERSION /tmp/nest-build
 

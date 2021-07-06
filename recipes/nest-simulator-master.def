@@ -1,43 +1,47 @@
 Bootstrap: docker
-From: ubuntu:18.04
+From: ubuntu:20.04
 
 %labels
   AUTHOR Sebastian Spreizer <spreizer@web.de>
 
 %post
-  apt-get update && apt-get install -y tzdata
-  apt-get install -y \
+  apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
     cmake \
     cython3 \
     git \
     libgsl-dev \
+    libicu-dev \
     libltdl-dev \
     libncurses5-dev \
+    libopenmpi-dev \
     libreadline-dev \
-    python \
+    openmpi-bin \
+    pkg-config \
+    python-dev \
     python3-all-dev \
+    python3-ipython \
+    python3-jupyter-core \
     python3-matplotlib \
+    python3-mpi4py \
     python3-numpy \
     python3-pandas \
+    python3-pip \
     python3-scipy \
-    python3-pip
+    python3-tk
 
   apt-get autoremove -y
   rm -rf /var/lib/apt/lists/*
 
-  pip3 install ipython jupyter --upgrade
+  python3 -m pip install docopt flask flask-cors RestrictedPython uwsgi
 
-  cd /tmp/
-  git clone https://github.com/nest/nest-simulator.git
-  cd nest-simulator; git fetch
+  rm -rf /tmp/nest-simulator
+  git clone --single-branch https://github.com/nest/nest-simulator.git /tmp/nest-simulator
+  python3 -m pip install -r /tmp/nest-simulator/extras/nest-simulator-doc-requirements.txt
 
   rm -rf /tmp/nest-build; mkdir /tmp/nest-build; cd /tmp/nest-build
-  cmake \
-    -DCMAKE_INSTALL_PREFIX:PATH=/opt/nest-simulator \
-    -Dwith-python=3 \
-    /tmp/nest-simulator
-  make -j 4; make install
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/nest-simulator /tmp/nest-simulator
+  make -j 4; make html; make install
 
   rm -rf /tmp/nest-simulator /tmp/nest-build
 
